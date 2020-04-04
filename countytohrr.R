@@ -9,13 +9,12 @@ library(readr)
 library(stringr)
 
 # loading and modifying data
-geocorr2014 <- read_csv("geocorr2014.csv") # loads crosswalk 
+geocorr2014 <- read_csv("C:\\Users\\anoop\\Documents\\GitHub\\covid-19-data\\geocorr2014.csv") # loads crosswalk 
 geocorr2014$cntyname = str_remove(geocorr2014$cntyname, "Parish") # removes Parish from Lousiana county names
-nyt = read_csv("us-counties.csv") # loads nytimes data
+nyt = read_csv("C:\\Users\\anoop\\Documents\\GitHub\\covid-19-data\\us-counties.csv") # loads nytimes data
 nyt = subset(nyt, nyt$date == max(nyt$date))
 nyt$state = setNames(state.abb, state.name)[nyt$state] #abbreviates states
 nyt$fips = str_pad(nyt$fips, 5, pad = 0) # pads 0s onto FIPS codes, for merging
-nyt <- subset(nyt, select = -c(date))
 # NYC and KC cases and deaths aren't separated out by county, grabbing those numbers for the nyt data
 NYCcases = nyt$cases[which(nyt$county == "New York City")]
 NYCdeaths = nyt$deaths[which(nyt$county == "New York City")]
@@ -59,8 +58,8 @@ full3$countycaserate = full3$cases/full3$countypop
 full3$countydeathrate = full3$deaths/full3$countypop
 full3$countycaserate100k = full3$countycaserate*100000
 full3$countydeathrate100k = full3$countydeathrate*100000
-
-write.csv(full3, "casesanddeathsbycounty.csv")
+output1filename = paste("casesanddeathsbycounty","_",as.character(max(nyt$date)),".csv",sep="")
+write.csv(full3, output1filename)
 
 # calculating and returning case and death rates by hrr, per capita and per 100k 
 full4 = full3
@@ -77,5 +76,6 @@ full5$hrrcaserate100k = full5$hrrcaserate*100000
 full5$hrrdeathrate100k = full5$hrrdeathrate*100000
 full6 = distinct(full5, hrr, .keep_all = TRUE)
 full7 = full6 %>%
-  select(hrr, hrrname, hrrpop, hrrcaserate, hrrdeathrate, hrrcaserate100k, hrrdeathrate100k)
-write.csv(full7, "casesanddeathsbyHRR.csv")
+select(hrr, hrrname, hrrpop, hrrcaserate, hrrdeathrate, hrrcaserate100k, hrrdeathrate100k)
+output2filename = paste("casesanddeathsbyHRR","_",as.character(max(nyt$date)),".csv",sep="")
+write.csv(full7, output2filename)
