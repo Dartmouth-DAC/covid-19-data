@@ -23,7 +23,8 @@ KCdeaths = nyt$deaths[which(nyt$county == "Kansas City")]
 
 # merging crosswalk and NYT data
 full = merge(geocorr2014, nyt, by.x = "county", by.y = "fips", all.x = TRUE)
-full[is.na(full)]=0 
+full$date = max(nyt$date)
+full[is.na(full)]=0
 full$pop10 <- as.numeric(full$pop10)
 full$afact = as.numeric(full$afact)
 
@@ -76,6 +77,8 @@ full5$hrrcaserate100k = full5$hrrcaserate*100000
 full5$hrrdeathrate100k = full5$hrrdeathrate*100000
 full6 = distinct(full5, hrr, .keep_all = TRUE)
 full7 = full6 %>%
-select(hrr, hrrname, hrrpop, hrrcaserate, hrrdeathrate, hrrcaserate100k, hrrdeathrate100k)
+  select(hrr, hrrname, hrrpop, hrrcaserate, hrrdeathrate, hrrcaserate100k, hrrdeathrate100k)
 output2filename = paste("casesanddeathsbyHRR","_",as.character(max(nyt$date)),".csv",sep="")
 write.csv(full7, output2filename)
+read.csv(output2filename)
+View(full7)
