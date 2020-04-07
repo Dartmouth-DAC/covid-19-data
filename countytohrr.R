@@ -82,6 +82,8 @@ full5 = full4 %>% # adds up allocated hrr rates from various counties.
 
 full5$hrrcaserate100k = full5$hrrcaserate*100000
 full5$hrrdeathrate100k = full5$hrrdeathrate*100000
+output1v2filename = paste("casesanddeathsbyhrr_uncollapsed", "_", as.character(max(nyt$date)), ".csv", sep="")
+write.csv(full5, output1v2filename)
 full6 = distinct(full5, hrr, .keep_all = TRUE)
 full7 = full6 %>%
   select(hrr, hrrname, hrrpop, hrrcaserate, hrrdeathrate, hrrcaserate100k, hrrdeathrate100k, date)
