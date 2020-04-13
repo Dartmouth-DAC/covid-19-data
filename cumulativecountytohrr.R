@@ -16,7 +16,7 @@ nytwhole$state = setNames(state.abb, state.name)[nytwhole$state] # abbreviates s
 nytwhole$fips = str_pad(nytwhole$fips, 5, pad = 0) # pads 0s onto FIPS codes, for merging
 dates = (unique(nytwhole$date))
 
-for (i in 1:(length(dates)-1)){ # iterates through all the distinct dates, creating 
+for (i in 1:(length(dates))){ # iterates through all the distinct dates, creating 
   nyt = subset(nytwhole, nytwhole$date == dates[i])
   # output0title = paste("outputs\\nytdata_", as.character(max(nyt$date)), ".csv", sep= "")
   # write.csv(nyt, output0title)
@@ -95,6 +95,13 @@ for (i in 1:(length(dates)-1)){ # iterates through all the distinct dates, creat
   # write.csv(fullcumulative7, output2filename)
   outhrr.file = rbind(outhrr.file, fullcumulative7)
 }
+outhrr.file = outhrr.file %>%
+  group_by(hrr) %>%
+  mutate(hrrcases = hrrpop*hrrcaserate) %>%
+  mutate(hrrdeaths = hrrpop*hrrdeathrate) %>%
+  mutate(casegrowthrate = 1+((hrrcases[which(date == max(date))])/(hrrcases[which(date == (max(date)-7))])-1)/7) %>%
+  mutate(deathgrowthrate = 1+((hrrdeaths[which(date == max(date))])/(hrrdeaths[which(date == (max(date)-7))])-1)/7)
 
 write.csv(outcounty.file, file = "CasesandDeathsbyCounty.csv")
 write.csv(outhrr.file, file = "CasesandDeathsbyHRR.csv")
+
