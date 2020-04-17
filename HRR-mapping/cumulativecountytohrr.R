@@ -7,6 +7,13 @@ library(readr)
 library(dplyr)
 library(stringr)
 
+# hardcoded values
+casegrowth_limiter = 25 # number of cases/deaths before starting to calculate growth/deathrates
+deathgrowth_limiter = 10
+NYCandKCcounties = c(36005, 36047, 36061, 36081, 36085, 29047, 29037, 29095, 29165) # FIPS for counties in NYC and KC, the geographic exemptions
+NYCcounties = c(36005, 36047, 36061, 36081, 36085) 
+KCcounties = c(29047, 29037, 29095, 29165)
+
 # loading and modifying data
 outcounty.file = NULL # creates empty file to place all the cumulative results in
 outhrr.file = NULL
@@ -43,7 +50,7 @@ for (i in 1:(length(dates))){ # iterates through all the distinct dates, creatin
   fullcumulative[is.na(fullcumulative)]=0
   fullcumulative$pop10 <- as.numeric(fullcumulative$pop10)
 
-  # Calculating county level populations
+  # Calculating county level and hrr populations
   fullcumulative1 = fullcumulative %>%
     group_by(county) %>%
     mutate(countypop = sum(pop10)) 
@@ -53,19 +60,18 @@ for (i in 1:(length(dates))){ # iterates through all the distinct dates, creatin
     mutate(hrrpop = sum(pop10))
   
   # NYCcumulative and KCcumulative data modifications - grabbing data for the metro regions, replacing empty county columns in the merged (fullcumulative) dataset
-  NYCcumulative = subset(fullcumulative2, county == 36005 | county == 36047 | county == 36061 | county == 36081 | county == 36085)
+  NYCcumulative = subset(fullcumulative2, county %in% NYCcounties)
   NYCcumulative$countypop = sum(NYCcumulative$pop10)
   NYCcumulative$cases = sum(NYCcumulative$cases)+NYCcumulativecases
   NYCcumulative$deaths = sum(NYCcumulative$deaths)+NYCcumulativedeaths
   
-  KCcumulative = subset(fullcumulative2, county == 29047 | county == 29037 | county == 29095 | county == 29165)
+  KCcumulative = subset(fullcumulative2, county %in% KCcounties)
   KCcumulative$countypop = sum(KCcumulative$pop10)
   KCcumulative$cases = sum(KCcumulative$cases)+KCcumulativecases
   KCcumulative$deaths = sum(KCcumulative$deaths)+KCcumulativedeaths
   
-  NYCandKCcounties = c(36005, 36047, 36061, 36081, 36085, 29047, 29037, 29095, 29165) # removing duplicate counties from the fullcumulative dataset
-  fullcumulative3 = fullcumulative2[!fullcumulative2$county %in% NYCandKCcounties,]
-  fullcumulative3 = rbind(KCcumulative,NYCcumulative,fullcumulative3)
+  fullcumulative3 = fullcumulative2[!fullcumulative2$county %in% NYCandKCcounties,] # removes counties in NYC and KC (the geographic exemptions)
+  fullcumulative3 = rbind(KCcumulative,NYCcumulative,fullcumulative3) # adds in updated data for NYC and KC with metro region data. 
   
   # calculating and returning case and death rates by county, per capita and per 100k
   fullcumulative3$countycaserate = fullcumulative3$cases/fullcumulative3$countypop 
@@ -95,13 +101,27 @@ for (i in 1:(length(dates))){ # iterates through all the distinct dates, creatin
   # write.csv(fullcumulative7, output2filename)
   outhrr.file = rbind(outhrr.file, fullcumulative7)
 }
-outhrr.file = outhrr.file %>%
+
+outhrr.file = outhrr.file %>% # produces case data and death data by hrr, calculates growth rates once the value a week before the latest data hits the limiter
   group_by(hrr) %>%
   mutate(hrrcases = hrrpop*hrrcaserate) %>%
   mutate(hrrdeaths = hrrpop*hrrdeathrate) %>%
-  mutate(casegrowthrate = 1+((hrrcases[which(date == max(date))])/(hrrcases[which(date == (max(date)-7))])-1)/7) %>%
-  mutate(deathgrowthrate = 1+((hrrdeaths[which(date == max(date))])/(hrrdeaths[which(date == (max(date)-7))])-1)/7)
+  mutate(casegrowthrate = ifelse(hrrcases[which(date == max(date) - 7)] >= casegrowth_limiter, 
+                                 ((hrrcases[which(date == max(date))])/(hrrcases[which(date == (max(date)-7))]))^(1/7)-1,
+                                  NA)) %>%
+  mutate(deathgrowthrate = ifelse(hrrdeaths[which(date == max(date) - 7)] >= deathgrowth_limiter, 
+                                  ((hrrdeaths[which(date == max(date))])/(hrrdeaths[which(date == (max(date)-7))]))^(1/7)-1,
+                                  NA)) 
 
+outhrr.file = outhrr.file %>% # creates rankings for assorted variables, by date. 
+  group_by(date) %>% 
+  mutate(hrrcases_rank = order(order(hrrcases, decreasing=TRUE))) %>%
+  mutate(hrrdeaths_rank = order(order(hrrdeaths, decreasing=TRUE))) %>%
+  mutate(caserate_rank = order(order(hrrcaserate, decreasing=TRUE))) %>%
+  mutate(deathrate_rank = order(order(hrrdeathrate, decreasing=TRUE))) %>%
+  mutate(casegrowthrate_rank = order(order(casegrowthrate, decreasing=TRUE))) %>%
+  mutate(deathgrowthrate_rank = order(order(deathgrowthrate, decreasing=TRUE))) 
+  
 write.csv(outcounty.file, file = "CasesandDeathsbyCounty.csv")
 write.csv(outhrr.file, file = "CasesandDeathsbyHRR.csv")
 
