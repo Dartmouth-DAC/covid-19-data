@@ -91,7 +91,8 @@ for (i in 1:(length(dates))){ # iterates through all the distinct dates, creatin
   fullcumulative5 = fullcumulative4 %>% # adds up allocated hrr rates from various counties. 
     group_by(hrr) %>%
     mutate(hrrcaserate = sum(hrrcaserate)) %>%
-    mutate(hrrdeathrate = sum(hrrdeathrate)) 
+    mutate(hrrdeathrate = sum(hrrdeathrate)) %>%
+    mutate(hrraccuracy_index = sum(accuracy_index))
   
   fullcumulative5$hrrcaserate100k = fullcumulative5$hrrcaserate*100000
   fullcumulative5$hrrdeathrate100k = fullcumulative5$hrrdeathrate*100000
