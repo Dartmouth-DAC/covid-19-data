@@ -86,6 +86,9 @@ for (i in 1:(length(dates))){ # iterates through all the distinct dates, creatin
   fullcumulative4 = fullcumulative3
   fullcumulative4$hrrcaserate = fullcumulative4$countycaserate*(fullcumulative4$pop10/fullcumulative4$hrrpop) # multiples the rates by the allocation factors in the crosswalk
   fullcumulative4$hrrdeathrate = fullcumulative4$countydeathrate*(fullcumulative4$pop10/fullcumulative4$hrrpop)
+  fullcumulative4 = fullcumulative4 %>%
+    group_by(hrr) %>%
+    mutate(accuracy_index = (fullcumulative4$pop10/fullcumulative4$hrrpop)*fullcumulative4$afact)
   
   fullcumulative5 = fullcumulative4 %>% # adds up allocated hrr rates from various counties. 
     group_by(hrr) %>%
@@ -112,6 +115,7 @@ outhrr.file = outhrr.file %>% # produces case data and death data by hrr, calcul
   mutate(deathgrowthrate = ifelse(hrrdeaths[which(date == max(date) - 7)] >= deathgrowth_limiter, 
                                   ((hrrdeaths[which(date == max(date))])/(hrrdeaths[which(date == (max(date)-7))]))^(1/7)-1,
                                   NA)) 
+
 
 outhrr.file = outhrr.file %>% # creates rankings for assorted variables, by date. 
   group_by(date) %>% 
