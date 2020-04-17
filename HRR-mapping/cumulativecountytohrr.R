@@ -86,9 +86,7 @@ for (i in 1:(length(dates))){ # iterates through all the distinct dates, creatin
   fullcumulative4 = fullcumulative3
   fullcumulative4$hrrcaserate = fullcumulative4$countycaserate*(fullcumulative4$pop10/fullcumulative4$hrrpop) # multiples the rates by the allocation factors in the crosswalk
   fullcumulative4$hrrdeathrate = fullcumulative4$countydeathrate*(fullcumulative4$pop10/fullcumulative4$hrrpop)
-  fullcumulative4 = fullcumulative4 %>%
-    group_by(hrr) %>%
-    mutate(accuracy_index = (fullcumulative4$pop10/fullcumulative4$hrrpop)*fullcumulative4$afact)
+  fullcumulative4$accuracy_index = (fullcumulative4$pop10/fullcumulative4$hrrpop)*as.numeric(fullcumulative4$afact)
   
   fullcumulative5 = fullcumulative4 %>% # adds up allocated hrr rates from various counties. 
     group_by(hrr) %>%
