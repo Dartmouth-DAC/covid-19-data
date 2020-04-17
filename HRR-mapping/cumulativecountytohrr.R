@@ -98,7 +98,7 @@ for (i in 1:(length(dates))){ # iterates through all the distinct dates, creatin
   fullcumulative5$hrrdeathrate100k = fullcumulative5$hrrdeathrate*100000
   fullcumulative6 = distinct(fullcumulative5, hrr, .keep_all = TRUE)
   fullcumulative7 = fullcumulative6 %>%
-    select(hrr, hrrname, hrrpop, hrrcaserate, hrrdeathrate, hrrcaserate100k, hrrdeathrate100k, date)
+    select(hrr, hrrname, hrrpop, hrrcaserate, hrrdeathrate, hrrcaserate100k, hrrdeathrate100k, date, accuracy_index)
   # output2filename = paste("outputs\\casesanddeathsbyHRR","_",as.character(max(nyt$date)),".csv",sep="") # uncomment to generate a separate CSV for every day of data
   # write.csv(fullcumulative7, output2filename)
   outhrr.file = rbind(outhrr.file, fullcumulative7)
