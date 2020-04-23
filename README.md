@@ -68,15 +68,21 @@ For those reasons, our data will in some cases not exactly match with the inform
 
 Confirmed cases are patients who test positive for the coronavirus. We consider a case confirmed when it is reported by a federal, state, territorial or local government agency.
 
-* "Probable" Cases
+* "Probable" Cases and Deaths
 
- Some states and counties are starting to report "probable" Covid-19 cases and deaths that do not have a positive laboratory test. For the time being, we are attempting to continue only counting lab-confirmed cases and deaths while we explore the possibility of switching metholodologies or reporting both numbers separately.
+Some states and counties are starting to report "probable" Covid-19 cases and deaths meeting a [standard definition](https://cdn.ymaws.com/www.cste.org/resource/resmgr/2020ps/interim-20-id-01_covid-19.pdf), but which do not have a positive laboratory test. For the time being, we are attempting to continue only counting lab-confirmed cases and deaths while we explore the possibility of switching methodologies or reporting both numbers separately.
 
- However, in Colorado, Ohio, Pennsylvania and Virginia health authorities have stopped reporting a lab-confirmed only number and so our numbers for those areas include "probable" cases. In Idaho our cases number is only lab-confirmed cases, but deaths include deaths of "probable" cases.
+However, in Colorado health authorities have stopped reporting a lab-confirmed only number of cases and deaths. In Ohio, Pennsylvania and Virginia officials report lab-confirmed and probable cases and deaths separately at the state level but combine lab-confirmed and probable cases at the county level. Our numbers combine both case types.
+
+In Idaho and Louisiana our total cases number includes only lab-confirmed cases, but our deaths number does include the deaths of probable Covid-19 cases.
 
 * Dates
 
 For each date, we show the cumulative number of confirmed cases and deaths as reported that day in that county or state. All cases and deaths are counted on the date they are first announced.
+
+* Declining Counts
+
+In some cases, the number of cases or deaths for a state or county will decline. This can occur when a state or county corrects an error in the number of cases or deaths they've reported in the past, or when a state moves cases from one county to another. When we are able, we will historically revise counts for all impacted dates. In other cases, this will be reflected in a single-day drop in the number of cases or deaths.
 
 * Counties
 
@@ -102,6 +108,10 @@ For all New York state counties, starting on April 8th we are reporting deaths b
 
 Starting April 12th, our case count excludes cases labeled by the state as "Non-Georgia Resident" leading to a one day drop in cases. These cases were previously included as cases with "Unknown" county.
 
+* Alabama
+
+Alabama's numbers for April 17th contained an [error](https://twitter.com/ALPublicHealth/status/1251531524958289920) in reporting of lab test results that the state is working to correct.
+
 * Kansas City, Mo.
 
 Four counties (Cass, Clay, Jackson and Platte) overlap the municipality of Kansas City, Mo. The cases and deaths that we show for these four counties are only for the portions exclusive of Kansas City. Cases and deaths for Kansas City are reported as their own line.
@@ -124,9 +134,9 @@ Counts for Guam include cases reported from the USS Theodore Roosevelt.
 
 * Puerto Rico
 
-We are trying to resolve some inconsistencies with our Puerto Rico data. Starting April 21st, the territory's health department revised their number of cases downward, saying they had been double counting some coronavirus patients in official reports, leading to a higher number of cases reported than actually confirmed. The territory's online dashboard is not yet updated.
+We are trying to resolve some inconsistencies with our Puerto Rico data. Starting April 21st, the territory's health department revised their number of cases downward, saying they had been double counting some coronavirus patients in official reports, leading to a higher number of cases reported than actually confirmed. The territory's online dashboard has not yet been updated.
 
-Additionally, from approximately April 12th through April 18th, the count of deaths for Puerto Rico include some probable Covid-19 related deaths that were not lab-confirmed. We will revise the numbers for these dates as possible.
+Additionally, from approximately April 12th through April 18th, the count of deaths for Puerto Rico include some probable Covid-19 related deaths that were not lab-confirmed. Starting April 19th these have been removed. We will revise the numbers for the 12th to 18th as possible.
 
 
 ## License and Attribution
