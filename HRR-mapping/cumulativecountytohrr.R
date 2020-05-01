@@ -6,10 +6,14 @@
 library(readr)
 library(dplyr)
 library(stringr)
+library(zoo)
 
 # hardcoded values
 casegrowth_limiter = 25 # number of cases/deaths before starting to calculate growth/deathrates
 deathgrowth_limiter = 10
+rollvalue = 7 # number of days including in rolling averages
+alignvalue = "right" # sets where the rolling average should be aligned, left, right, or center
+growthvalue = 7 # number of days included in growthrates
 NYCandKCcounties = c(36005, 36047, 36061, 36081, 36085, 29047, 29037, 29095, 29165) # FIPS for counties in NYC and KC, the geographic exemptions
 NYCcounties = c(36005, 36047, 36061, 36081, 36085) 
 KCcounties = c(29047, 29037, 29095, 29165)
@@ -101,20 +105,30 @@ for (i in 1:(length(dates))){ # iterates through all the distinct dates, creatin
     select(hrr, hrrname, hrrpop, hrrcaserate, hrrdeathrate, hrrcaserate100k, hrrdeathrate100k, date, accuracy_index)
   # output2filename = paste("outputs\\casesanddeathsbyHRR","_",as.character(max(nyt$date)),".csv",sep="") # uncomment to generate a separate CSV for every day of data
   # write.csv(fullcumulative7, output2filename)
-  outhrr.file = rbind(outhrr.file, fullcumulative7)
+  fullcumulative8 = subset(fullcumulative7, hrr != "Hospital referral regions (2016)") # removes extra text rows 
+  outhrr.file = rbind(outhrr.file, fullcumulative8)
 }
 
 outhrr.file = outhrr.file %>% # produces case data and death data by hrr, calculates growth rates once the value a week before the latest data hits the limiter
   group_by(hrr) %>%
+  arrange(date) %>%
   mutate(hrrcases = hrrpop*hrrcaserate) %>%
   mutate(hrrdeaths = hrrpop*hrrdeathrate) %>%
-  mutate(casegrowthrate = ifelse(hrrcases[which(date == max(date) - 7)] >= casegrowth_limiter, 
-                                 ((hrrcases[which(date == max(date))])/(hrrcases[which(date == (max(date)-7))]))^(1/7)-1,
-                                  NA)) %>%
-  mutate(deathgrowthrate = ifelse(hrrdeaths[which(date == max(date) - 7)] >= deathgrowth_limiter, 
-                                  ((hrrdeaths[which(date == max(date))])/(hrrdeaths[which(date == (max(date)-7))]))^(1/7)-1,
-                                  NA)) 
-
+  mutate(lag_date = lag(date, n = growthvalue, fill = NA)) %>% # creates columns with date, cases, and deaths lagged by growthvalue, to calculate growthrates
+  mutate(lag_cases = lag(hrrcases, n = growthvalue, fill = NA)) %>% 
+  mutate(lag_deaths = lag(hrrdeaths, n = growthvalue, fill = NA)) %>%
+  mutate(casegrowthrate = ifelse(lag_cases >= casegrowth_limiter, 
+                               (hrrcases/lag_cases)^(1/growthvalue)-1,
+                               NA)) %>%
+  mutate(deathgrowthrate = ifelse(lag_deaths >= deathgrowth_limiter, 
+                                  (hrrdeaths/lag_deaths)^(1/growthvalue)-1,
+                                  NA)) %>% 
+  mutate(hrrcases_rollingaverage = rollmean(hrrcases, rollvalue, fill = NA, align = alignvalue)) %>% # finds rolling averages
+  mutate(hrrdeaths_rollingaverage = rollmean(hrrdeaths, rollvalue, fill = NA, align = alignvalue)) %>%
+  mutate(hrrcaserate_rollingaverage = rollmean(hrrcaserate, rollvalue, fill = NA, align = alignvalue)) %>%
+  mutate(hrrdeathrate_rollingaverage = rollmean(hrrdeathrate, rollvalue, fill = NA, align = alignvalue)) %>%
+  mutate(casegrowrthrate_rollingaverage = rollmean(casegrowthrate, rollvalue, fill = NA, align = alignvalue)) %>%
+  mutate(deathgrowthrate_rollingaverage = rollmean(deathgrowthrate, rollvalue, fill = NA, alighn = alignvalue))
 
 outhrr.file = outhrr.file %>% # creates rankings for assorted variables, by date. 
   group_by(date) %>% 
@@ -123,7 +137,14 @@ outhrr.file = outhrr.file %>% # creates rankings for assorted variables, by date
   mutate(caserate_rank = order(order(hrrcaserate, decreasing=TRUE))) %>%
   mutate(deathrate_rank = order(order(hrrdeathrate, decreasing=TRUE))) %>%
   mutate(casegrowthrate_rank = order(order(casegrowthrate, decreasing=TRUE))) %>%
-  mutate(deathgrowthrate_rank = order(order(deathgrowthrate, decreasing=TRUE))) 
+  mutate(deathgrowthrate_rank = order(order(deathgrowthrate, decreasing=TRUE))) %>%  
+  mutate(hrrcases_rollingaverage_rank = order(order(hrrcases_rollingaverage, decreasing=TRUE))) %>%  
+  mutate(hrrdeaths_rollingaverage_rank = order(order(hrrdeaths_rollingaverage, decreasing=TRUE))) %>%  
+  mutate(hrrcaserate_rollingaverage_rank = order(order(hrrcaserate_rollingaverage, decreasing=TRUE))) %>%  
+  mutate(hrrdeathrate_rollingaverage_rank = order(order(hrrdeathrate_rollingaverage, decreasing=TRUE))) %>%  
+  mutate(casegrowrthrate_rollingaverage_rank = order(order(casegrowrthrate_rollingaverage, decreasing=TRUE))) %>%  
+  mutate(deathgrowthrate_rollingaverage_rank = order(order(deathgrowthrate_rollingaverage, decreasing=TRUE)))  
+
   
 write.csv(outcounty.file, file = "CasesandDeathsbyCounty.csv")
 write.csv(outhrr.file, file = "CasesandDeathsbyHRR.csv")
