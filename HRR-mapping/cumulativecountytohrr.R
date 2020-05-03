@@ -11,9 +11,13 @@ library(zoo)
 # hardcoded values
 casegrowth_limiter = 25 # number of cases/deaths before starting to calculate growth/deathrates
 deathgrowth_limiter = 10
-rollvalue = 7 # number of days including in rolling averages
-alignvalue = "right" # sets where the rolling average should be aligned, left, right, or center
+rollaveragevalue = 7 # number of days included in rolling averages
+alignaveragevalue = "right" # sets where the rolling average should be aligned, left, right, or center
+rollsumvalue = 14 # number of days included in rolling sums of new cases/deaths
+alignsumvalue = "right" # sets where the rolling sum should be aligned, left, right, or center
 growthvalue = 7 # number of days included in growthrates
+newcasegrowth_limiter = 5 
+newdeathgrowth_limiter = 1
 NYCandKCcounties = c(36005, 36047, 36061, 36081, 36085, 29047, 29037, 29095, 29165) # FIPS for counties in NYC and KC, the geographic exemptions
 NYCcounties = c(36005, 36047, 36061, 36081, 36085) 
 KCcounties = c(29047, 29037, 29095, 29165)
@@ -123,12 +127,30 @@ outhrr.file = outhrr.file %>% # produces case data and death data by hrr, calcul
   mutate(deathgrowthrate = ifelse(lag_deaths >= deathgrowth_limiter, 
                                   (hrrdeaths/lag_deaths)^(1/growthvalue)-1,
                                   NA)) %>% 
-  mutate(hrrcases_rollingaverage = rollmean(hrrcases, rollvalue, fill = NA, align = alignvalue)) %>% # finds rolling averages
-  mutate(hrrdeaths_rollingaverage = rollmean(hrrdeaths, rollvalue, fill = NA, align = alignvalue)) %>%
-  mutate(hrrcaserate_rollingaverage = rollmean(hrrcaserate, rollvalue, fill = NA, align = alignvalue)) %>%
-  mutate(hrrdeathrate_rollingaverage = rollmean(hrrdeathrate, rollvalue, fill = NA, align = alignvalue)) %>%
-  mutate(casegrowrthrate_rollingaverage = rollmean(casegrowthrate, rollvalue, fill = NA, align = alignvalue)) %>%
-  mutate(deathgrowthrate_rollingaverage = rollmean(deathgrowthrate, rollvalue, fill = NA, alighn = alignvalue))
+  mutate(hrrcases_rollingaverage = rollmean(hrrcases, rollaveragevalue, fill = NA, align = alignaveragevalue)) %>% # finds rolling averages
+  mutate(hrrdeaths_rollingaverage = rollmean(hrrdeaths, rollaveragevalue, fill = NA, align = alignaveragevalue)) %>%
+  mutate(hrrcaserate_rollingaverage = rollmean(hrrcaserate, rollaveragevalue, fill = NA, align = alignaveragevalue)) %>%
+  mutate(hrrdeathrate_rollingaverage = rollmean(hrrdeathrate, rollaveragevalue, fill = NA, align = alignaveragevalue)) %>%
+  mutate(casegrowrthrate_rollingaverage = rollmean(casegrowthrate, rollaveragevalue, fill = NA, align = alignaveragevalue)) %>%
+  mutate(deathgrowthrate_rollingaverage = rollmean(deathgrowthrate, rollaveragevalue, fill = NA, align = alignaveragevalue)) %>%
+  mutate(newcases = hrrcases - lag(hrrcases, n = 1, fill = NA)) %>%
+  mutate(newdeaths = hrrdeaths - lag(hrrdeaths, n = 1, fill = NA)) %>%
+  mutate(newcases_rollingsum = rollsum(newcases, rollsumvalue, fill = NA, align = alignsumvalue)) %>%
+  mutate(newdeaths_rollingsum = rollsum(newdeaths, rollsumvalue, fill = NA, align = alignsumvalue)) %>%
+  mutate(newcases_rollingaverage = rollmean(newcases, rollaveragevalue, fill = NA, align = alignaveragevalue)) %>%
+  mutate(newdeaths_rollingaverage = rollmean(newdeaths, rollaveragevalue, fill = NA, align = alignaveragevalue)) %>%
+  mutate(newcases_rate = newcases/hrrpop) %>%
+  mutate(newdeaths_rate = newdeaths/hrrpop) %>%
+  mutate(newcases_rollingsum_rate = newcases_rollingsum/hrrpop) %>%
+  mutate(newdeaths_rollingsum_rate = newdeaths_rollingsum/hrrpop) %>%
+  mutate(lag_newcases = lag(newcases, n = growthvalue, fill = NA)) %>% 
+  mutate(lag_newdeaths = lag(newdeaths, n = growthvalue, fill = NA)) %>%
+  mutate(newcasesgrowthrate = ifelse(lag_newcases >= newcasegrowth_limiter, 
+                                 (newcases/lag_newcases)^(1/growthvalue)-1,
+                                 NA)) %>%
+  mutate(newdeathsgrowthrate = ifelse(lag_newdeaths >= newdeathgrowth_limiter, 
+                                  (newdeaths/lag_newdeaths)^(1/growthvalue)-1,
+                                  NA))  
 
 outhrr.file = outhrr.file %>% # creates rankings for assorted variables, by date. 
   group_by(date) %>% 
@@ -143,8 +165,23 @@ outhrr.file = outhrr.file %>% # creates rankings for assorted variables, by date
   mutate(hrrcaserate_rollingaverage_rank = order(order(hrrcaserate_rollingaverage, decreasing=TRUE))) %>%  
   mutate(hrrdeathrate_rollingaverage_rank = order(order(hrrdeathrate_rollingaverage, decreasing=TRUE))) %>%  
   mutate(casegrowrthrate_rollingaverage_rank = order(order(casegrowrthrate_rollingaverage, decreasing=TRUE))) %>%  
-  mutate(deathgrowthrate_rollingaverage_rank = order(order(deathgrowthrate_rollingaverage, decreasing=TRUE)))  
-
+  mutate(deathgrowthrate_rollingaverage_rank = order(order(deathgrowthrate_rollingaverage, decreasing=TRUE))) %>%
+  mutate(newcases_rank = order(order(newcases, decreasing=TRUE))) %>%
+  mutate(newdeaths_rank = order(order(newdeaths, decreasing=TRUE))) %>%
+  mutate(newcases_rollingsum_rank = order(order(newcases_rollingsum, decreasing=TRUE))) %>%
+  mutate(newdeaths_rollingsum_rank = order(order(newdeaths_rollingsum, decreasing=TRUE))) %>%
+  mutate(newcases_rank = order(order(newcases, decreasing=TRUE))) %>%
+  mutate(newdeaths_rank = order(order(newdeaths, decreasing=TRUE))) %>%
+  mutate(newcases_rollingsum_rank = order(order(newcases_rollingsum, decreasing=TRUE))) %>%
+  mutate(newdeaths_rollingsum_rank = order(order(newdeaths_rollingsum, decreasing=TRUE))) %>%
+  mutate(newcases_rollingaverage_rank = order(order(newcases_rollingaverage, decreasing=TRUE))) %>%
+  mutate(newdeaths_rollingaverage_rank = order(order(newdeaths_rollingaverage, decreasing=TRUE))) %>%
+  mutate(newcases_rate_rank = order(order(newcases_rate, decreasing=TRUE))) %>%
+  mutate(newdeaths_rate_rank = order(order(newdeaths_rate, decreasing=TRUE))) %>%
+  mutate(newcases_rollingsum_rate_rank = order(order(newcases_rollingsum_rate, decreasing=TRUE))) %>%
+  mutate(newdeaths_rollingsum_rate_rank = order(order(newdeaths_rollingsum_rate, decreasing=TRUE))) %>%
+  mutate(newcasesgrowthrate_rank = order(order(newcasesgrowthrate, decreasing=TRUE))) %>%
+  mutate(newdeathsgrowthrate_rank = order(order(newdeathsgrowthrate, decreasing=TRUE))) 
   
 write.csv(outcounty.file, file = "CasesandDeathsbyCounty.csv")
 write.csv(outhrr.file, file = "CasesandDeathsbyHRR.csv")
