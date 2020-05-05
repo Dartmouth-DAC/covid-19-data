@@ -176,10 +176,10 @@ outhrr.file = outhrr.file %>% # creates rankings for assorted variables, by date
   mutate(newdeaths_rollingsum_rank = order(order(newdeaths_rollingsum, decreasing=TRUE))) %>%
   mutate(newcases_rollingaverage_rank = order(order(newcases_rollingaverage, decreasing=TRUE))) %>%
   mutate(newdeaths_rollingaverage_rank = order(order(newdeaths_rollingaverage, decreasing=TRUE))) %>%
-  mutate(newcases_rate_rank100k = order(order(newcases_rate, decreasing=TRUE))) %>%
-  mutate(newdeaths_rate_rank100k = order(order(newdeaths_rate, decreasing=TRUE))) %>%
-  mutate(newcases_rollingsum_rate_rank100k = order(order(newcases_rollingsum_rate, decreasing=TRUE))) %>%
-  mutate(newdeaths_rollingsum_rate_rank100k = order(order(newdeaths_rollingsum_rate, decreasing=TRUE))) %>%
+  mutate(newcases_rate100k_rank = order(order(newcases_rate100k, decreasing=TRUE))) %>%
+  mutate(newdeaths_rate100k_rank = order(order(newdeaths_rate100k, decreasing=TRUE))) %>%
+  mutate(newcases_rollingsum_rate100k_rank = order(order(newcases_rollingsum_rate100k, decreasing=TRUE))) %>%
+  mutate(newdeaths_rollingsum_rate100k_rank = order(order(newdeaths_rollingsum_rate100k, decreasing=TRUE))) %>%
   mutate(newcasesgrowthrate_rank = order(order(newcasesgrowthrate, decreasing=TRUE))) %>%
   mutate(newdeathsgrowthrate_rank = order(order(newdeathsgrowthrate, decreasing=TRUE))) 
   
