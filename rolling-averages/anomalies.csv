@@ -540,6 +540,7 @@ date,end_date,county,state,geoid,type,omit_from_rolling_average,omit_from_rollin
 2021-06-14,,Woodford,Illinois,USA-17203,cases,yes,,"The Times began using state data for Woodford County, resulting in a one-time decrease in cases. "
 2021-06-14,,Pierce,Washington,USA-53053,deaths,yes,,"Washington removed about 30 deaths from causes unrelated to Covid-19, including a decrease in Pierce County."
 2021-06-15,,,Tennessee,USA-47,cases,yes,yes,"Tennessee reallocated many cases, resulting in one-time increases in some counties and decreases in others."
+2021-06-15,,San Mateo,California,USA-06081,deaths,yes,,California added many San Mateo County deaths.
 2021-06-15,,Williamson,Texas,USA-48491,cases,yes,,Williamson County removed about 300 duplicate cases.
 2021-06-15,2021-06-16,Knox,Kentucky,USA-21121,cases,yes,,Kentucky removed many cases in Whitley County and added many cases in neighboring Knox and Laurel counties.
 2021-06-15,2021-06-16,Laurel,Kentucky,USA-21125,cases,yes,,Kentucky removed many cases in Whitley County and added many cases in neighboring Knox and Laurel counties.
@@ -548,5 +549,59 @@ date,end_date,county,state,geoid,type,omit_from_rolling_average,omit_from_rollin
 2021-06-17,2021-06-18,Harris,Texas,USA-48201,cases,yes,,Harris County removed many duplicate cases.
 2021-06-18,,Frio,Texas,USA-48163,cases,yes,,Texas removed 86 cases in Frio County.
 2021-06-19,,,Indiana,USA-18,cases,yes,yes,Indiana added a backlog of about 300 cases. 
+2021-06-19,,Gray,Texas,USA-48179,cases,yes,,Texas added a backlog of cases in Gray County.
+2021-06-19,,Hutchinson,Texas,USA-48233,cases,yes,,Texas added a backlog of cases in Hutchinson County.
+2021-06-19,,Bowie,Texas,USA-48037,cases,yes,,Texas added a backlog of cases in Bowie County.
+2021-06-19,,San Jacinto,Texas,USA-48407,cases,yes,,Texas added a backlog of cases in San Jacinto County.
+2021-06-19,,Shelby,Texas,USA-48419,cases,yes,,Texas added a backlog of cases in Shelby County.
+2021-06-19,2021-06-26,Upshur,Texas,USA-48459,cases,yes,,Texas added a backlog of cases in Upshur County.
 2021-06-21,,,West Virginia,USA-54,both,,,West Virginia did not report new data for the West Virginia Day state holiday.
 2021-06-21,,,Nevada,USA-32,deaths,yes,,Nevada removed several deaths in Washoe County.
+2021-06-22,2021-06-24,Houston,Texas,USA-48225,cases,yes,,Texas added a backlog of cases in Houston County.
+2021-06-22,2021-06-24,Benewah,Idaho,USA-16009,cases,yes,,Benewah County added a backlog of older cases.
+2021-06-23,2021-06-29,Harrison,Texas,USA-48203,cases,yes,,Texas added a backlog of cases in Harrison County.
+2021-06-23,,Medina,Texas,USA-48325,cases,yes,,"Texas removed many duplicate cases, including about 100 cases in Medina County."
+2021-06-23,,Calhoun,Texas,USA-48057,cases,yes,,"Texas removed many duplicate cases, including about 25 cases in Calhoun County."
+2021-06-23,,Wilson,Texas,USA-48493,cases,yes,,"Texas removed many duplicate cases, including about 30 cases in Wilson County."
+2021-06-23,,Zavala,Texas,USA-48507,cases,yes,,"Texas removed many duplicate cases, including about 10 cases in Zavala County."
+2021-06-23,,Kerr,Texas,USA-48265,cases,yes,,"Texas removed many duplicate cases, including about 30 cases in Kerr County."
+2021-06-23,,Karnes,Texas,USA-48255,cases,yes,,"Texas removed many duplicate cases, including several cases in Karnes County."
+2021-06-23,,Atascosa,Texas,USA-48013,cases,yes,,"Texas removed many duplicate cases, including about 60 cases in Atascosa County."
+2021-06-23,,Bandera,Texas,USA-48019,cases,yes,,"Texas removed many duplicate cases, including about 20 cases in Bandera County."
+2021-06-23,2021-06-25,Rusk,Texas,USA-48401,cases,yes,,Texas added a backlog of cases in Rusk County.
+2021-06-23,,Maverick,Texas,USA-48323,cases,yes,,Texas removed about 400 duplicate cases in Maverick County.
+2021-06-23,,Frio,Texas,USA-48163,cases,yes,,"Texas removed many duplicate cases, including about 60 cases in Frio County."
+2021-06-23,,DeWitt,Texas,USA-48123,cases,yes,,"Texas removed many duplicate cases, including several cases in DeWitt County."
+2021-06-23,,Dimmit,Texas,USA-48127,cases,yes,,"Texas removed many duplicate cases, including about 20 cases in Dimmit County."
+2021-06-23,,Edwards,Texas,USA-48137,cases,yes,,"Texas removed many duplicate cases, including several cases in Edwards County."
+2021-06-23,,Gillespie,Texas,USA-48171,cases,yes,,"Texas removed many duplicate cases, including about 30 cases in Gillespie County."
+2021-06-23,,Gonzales,Texas,USA-48177,cases,yes,,"Texas removed many duplicate cases, including about 30 cases in Gonzales County."
+2021-06-23,,Guadalupe,Texas,USA-48187,cases,yes,,"Texas removed many duplicate cases, including about 130 cases in Guadalupe County."
+2021-06-23,,Jackson,Texas,USA-48239,cases,yes,,"Texas removed many duplicate cases, including about 20 cases in Jackson County."
+2021-06-23,,La Salle,Texas,USA-48283,cases,yes,,"Texas removed many duplicate cases, including several cases in La Salle County."
+2021-06-23,,Kendall,Texas,USA-48259,cases,yes,,"Texas removed many duplicate cases, including about 40 cases in Kendall County."
+2021-06-23,,Kinney,Texas,USA-48271,cases,yes,,"Texas removed many duplicate cases, including several cases in Kinney County."
+2021-06-23,,Lavaca,Texas,USA-48285,cases,yes,,"Texas removed many duplicate cases, including about 40 cases in Lavaca County."
+2021-06-23,,Real,Texas,USA-48385,cases,yes,,"Texas removed many duplicate cases, including several cases in Real County."
+2021-06-23,2021-06-29,Panola,Texas,USA-48365,cases,yes,,Texas added a backlog of cases in Panola County.
+2021-06-23,2021-06-26,Bowie,Texas,USA-48037,cases,yes,,Texas added a backlog of cases in Bowie County.
+2021-06-23,2021-06-24,Camp,Texas,USA-48063,cases,yes,,Texas added a backlog of cases in Camp County.
+2021-06-23,2021-06-25,Cass,Texas,USA-48067,cases,yes,,Texas added a backlog of cases in Cass County.
+2021-06-23,2021-06-24,Delta,Texas,USA-48119,cases,yes,,Texas added a backlog of cases in Delta County.
+2021-06-23,2021-06-24,Franklin,Texas,USA-48159,cases,yes,,Texas added a backlog of cases in Franklin County.
+2021-06-23,2021-06-25,Hopkins,Texas,USA-48223,cases,yes,,Texas added a backlog of cases in Hopkins County.
+2021-06-23,2021-06-24,Marion,Texas,USA-48315,cases,yes,,Texas added a backlog of cases in Marion County.
+2021-06-23,2021-06-24,Morris,Texas,USA-48343,cases,yes,,Texas added a backlog of cases in Morris County.
+2021-06-23,2021-06-29,Nacogdoches,Texas,USA-48347,cases,yes,,Texas added a backlog of cases in Nacogdoches County.
+2021-06-23,2021-06-29,Red River,Texas,USA-48387,cases,yes,,Texas added a backlog of cases in Red River County.
+2021-06-23,,San Jacinto,Texas,USA-48407,cases,yes,,Texas added a backlog of cases in San Jacinto County.
+2021-06-23,2021-06-26,Shelby,Texas,USA-48419,cases,yes,,Texas added a backlog of cases in Shelby County.
+2021-06-23,2021-06-29,Titus,Texas,USA-48449,cases,yes,,Texas added a backlog of cases in Titus County.
+2021-06-23,2021-06-24,Trinity,Texas,USA-48455,cases,yes,,Texas added a backlog of cases in Trinity County.
+2021-06-24,,Harris,Texas,USA-48201,cases,yes,,Harris County removed more than 100 cases.
+2021-06-27,,Ellis,Texas,USA-48139,cases,yes,,Ellis County removed 96 cases.
+2021-06-28,2021-06-29,Harris,Texas,USA-48201,cases,yes,,Harris County removed many duplicate cases.
+2021-06-29,,Kings,California,USA-06031,cases,yes,,Kings County removed 135 cases.
+2021-06-29,,Riverside,California,USA-06065,cases,yes,,Riverside County removed about 100 cases and changed to a weekly reporting schedule.
+2021-06-30,,,California,USA-06,cases,yes,yes,California removed many duplicate and incorrectly categorized cases.
+2021-06-30,,,West Virginia,USA-54,deaths,yes,,West Virginia added 11 deaths that occurred in late 2020 and early 2021. 
