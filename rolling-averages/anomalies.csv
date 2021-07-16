@@ -550,6 +550,7 @@ date,end_date,county,state,geoid,type,omit_from_rolling_average,omit_from_rollin
 2021-06-17,2021-06-18,Harris,Texas,USA-48201,cases,yes,,Harris County removed many duplicate cases.
 2021-06-18,,Frio,Texas,USA-48163,cases,yes,,Texas removed 86 cases in Frio County.
 2021-06-19,,,Indiana,USA-18,cases,yes,yes,Indiana added a backlog of about 300 cases. 
+2021-06-19,2021-07-01,Harrison,Texas,USA-48203,cases,yes,,Texas added a backlog of cases in Harrison County.
 2021-06-19,,Gray,Texas,USA-48179,cases,yes,,Texas added a backlog of cases in Gray County.
 2021-06-19,,Hutchinson,Texas,USA-48233,cases,yes,,Texas added a backlog of cases in Hutchinson County.
 2021-06-19,,Bowie,Texas,USA-48037,cases,yes,,Texas added a backlog of cases in Bowie County.
@@ -559,9 +560,9 @@ date,end_date,county,state,geoid,type,omit_from_rolling_average,omit_from_rollin
 2021-06-19,2021-06-26,Upshur,Texas,USA-48459,cases,yes,,Texas added a backlog of cases in Upshur County.
 2021-06-21,,,West Virginia,USA-54,both,,,West Virginia did not report new data for the West Virginia Day state holiday.
 2021-06-21,,,Nevada,USA-32,deaths,yes,,Nevada removed several deaths in Washoe County.
-2021-06-22,2021-07-01,Houston,Texas,USA-48225,cases,yes,,Texas added a backlog of cases in Houston County.
+2021-06-22,2021-07-02,Houston,Texas,USA-48225,cases,yes,,Texas added a backlog of cases in Houston County.
 2021-06-22,2021-06-24,Benewah,Idaho,USA-16009,cases,yes,,Benewah County added a backlog of older cases.
-2021-06-23,2021-06-29,Harrison,Texas,USA-48203,cases,yes,,Texas added a backlog of cases in Harrison County.
+2021-06-22,,Jefferson,Texas,USA-48245,cases,yes,,Texas added a backlog of cases in Jefferson County.
 2021-06-23,,Medina,Texas,USA-48325,cases,yes,,"Texas removed many duplicate cases, including about 100 cases in Medina County."
 2021-06-23,,Calhoun,Texas,USA-48057,cases,yes,,"Texas removed many duplicate cases, including about 25 cases in Calhoun County."
 2021-06-23,,Wilson,Texas,USA-48493,cases,yes,,"Texas removed many duplicate cases, including about 30 cases in Wilson County."
@@ -591,7 +592,7 @@ date,end_date,county,state,geoid,type,omit_from_rolling_average,omit_from_rollin
 2021-06-23,2021-06-25,Cass,Texas,USA-48067,cases,yes,,Texas added a backlog of cases in Cass County.
 2021-06-23,2021-06-24,Delta,Texas,USA-48119,cases,yes,,Texas added a backlog of cases in Delta County.
 2021-06-23,2021-06-24,Franklin,Texas,USA-48159,cases,yes,,Texas added a backlog of cases in Franklin County.
-2021-06-23,2021-06-30,Hopkins,Texas,USA-48223,cases,yes,,Texas added a backlog of cases in Hopkins County.
+2021-06-23,2021-07-03,Hopkins,Texas,USA-48223,cases,yes,,Texas added a backlog of cases in Hopkins County.
 2021-06-23,2021-06-24,Marion,Texas,USA-48315,cases,yes,,Texas added a backlog of cases in Marion County.
 2021-06-23,2021-06-24,Morris,Texas,USA-48343,cases,yes,,Texas added a backlog of cases in Morris County.
 2021-06-23,2021-07-01,Red River,Texas,USA-48387,cases,yes,,Texas added a backlog of cases in Red River County.
@@ -599,6 +600,7 @@ date,end_date,county,state,geoid,type,omit_from_rolling_average,omit_from_rollin
 2021-06-23,2021-07-03,Shelby,Texas,USA-48419,cases,yes,,Texas added a backlog of cases in Shelby County.
 2021-06-23,2021-07-01,Titus,Texas,USA-48449,cases,yes,,Texas added a backlog of cases in Titus County.
 2021-06-23,2021-06-24,Trinity,Texas,USA-48455,cases,yes,,Texas added a backlog of cases in Trinity County.
+2021-06-23,,King,Washington,USA-53033,both,yes,,King County added many cases and deaths from previous months.
 2021-06-24,,Harris,Texas,USA-48201,cases,yes,,Harris County removed more than 100 cases.
 2021-06-26,2021-07-02,Ellis,Texas,USA-48139,cases,yes,,Ellis County removed many duplicate cases over several days.
 2021-06-28,2021-06-29,Harris,Texas,USA-48201,cases,yes,,Harris County removed many duplicate cases.
@@ -609,7 +611,13 @@ date,end_date,county,state,geoid,type,omit_from_rolling_average,omit_from_rollin
 2021-06-30,2021-07-02,Davidson,Tennessee,USA-47037,cases,yes,,Davidson County removed many cases.
 2021-06-30,2021-07-07,Richmond,Virginia,USA-51159,cases,yes,,Virginia removed many cases in Richmond County.
 2021-07-01,,Butler,Ohio,USA-39017,cases,yes,,Ohio added a backlog of cases in Butler County.
+2021-07-01,,Delaware,Pennsylvania,USA-42045,deaths,yes,,"The Times began using state data for Delaware County deaths, resulting in a one-time decrease. "
 2021-07-02,,,,USA,deaths,yes,,"Santa Clara County, Calif., officials revised their total death toll downward after a review of records."
 2021-07-02,,,California,USA-06,deaths,yes,,Santa Clara County removed many deaths from causes unrelated to Covid-19.
 2021-07-02,,Santa Clara,California,USA-06085,deaths,yes,,Santa Clara County removed many deaths from causes unrelated to Covid-19.
-2021-07-07,,Richmond city,Virginia,USA-51760,cases,yes,,Virginia added many cases in Richmond after removing many cases the previous week.
+2021-07-07,,,Iowa,USA-19,cases,yes,yes,"Iowa moved to a weekly update schedule and made case adjustments, resulting in increases in some counties and decreases in others."
+2021-07-07,2021-07-08,Richmond city,Virginia,USA-51760,cases,yes,,Virginia added many cases in Richmond after removing many cases the previous week.
+2021-07-08,,Greene,Virginia,USA-51079,cases,yes,,Virginia added many cases in Greene County.
+2021-07-13,,Hopkins,Texas,USA-48223,cases,yes,,Texas added many older cases in Hopkins County.
+2021-07-14,,,Arizona,USA-04,cases,,,Arizona added many cases after resolving a tehnical issue that affected case counts for the two previous days. 
+2021-07-14,,Riverside,California,USA-06065,cases,yes,,Riverside County removed many cases.
